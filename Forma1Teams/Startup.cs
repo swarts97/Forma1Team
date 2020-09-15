@@ -12,6 +12,7 @@ using Forma1Teams.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Data.Sqlite;
 
 namespace Forma1Teams
 {
@@ -27,17 +28,24 @@ namespace Forma1Teams
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+				.AddEntityFrameworkStores<Forma1TeamsContext>();
 			services.AddRazorPages();
+
+			//Mivel az SQLite in-memory adatbázisok élettartama kapcsolatbontásig tart így szükséges egy explicit megnyitott kapcsolatot átadni.
+			var inMemorySQLiteConnection = new SqliteConnection("DataSource=:memory:");
+			inMemorySQLiteConnection.Open();
+
+			services.AddDbContext<Forma1TeamsContext>(options =>
+		            options.UseSqlite(inMemorySQLiteConnection));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			//Mivel in-memory adatbázissal dolgozunk, mely futásidõben jön létre, így a migrációt is futásidõben kell elvégeznünk.
+			UpdateDatabase(app);
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -62,6 +70,17 @@ namespace Forma1Teams
 			{
 				endpoints.MapRazorPages();
 			});
+		}
+
+		private static void UpdateDatabase(IApplicationBuilder app)
+		{
+			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			{
+				using (var context = serviceScope.ServiceProvider.GetService<Forma1TeamsContext>())
+				{
+					context.Database.Migrate();
+				}
+			}
 		}
 	}
 }
