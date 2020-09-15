@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Forma1Teams.Data;
 using Forma1Teams.Models;
+using System.ComponentModel.DataAnnotations;
+using static Forma1Teams.Services.ValidatorService;
 
 namespace Forma1Teams.Pages.Teams
 {
@@ -25,10 +27,22 @@ namespace Forma1Teams.Pages.Teams
         }
 
         [BindProperty]
-        public Team Team { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+        [BindProperty]
+        [Required]
+        [FoundationValidator]
+        public int YearOfFoundation { get; set; }
+
+        [BindProperty]
+        [Required]
+        [WorldChampionNumberValidator]
+        public int WorldChampionNumber { get; set; }
+
+        [BindProperty]
+        public bool EntryFeePaid { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -36,7 +50,15 @@ namespace Forma1Teams.Pages.Teams
                 return Page();
             }
 
-            _context.Teams.Add(Team);
+            Team newTeam = new Team()
+            {
+                Name = Name,
+                YearOfFoundation = YearOfFoundation,
+                WorldChampionNumber = WorldChampionNumber,
+                EntryFeePaid = EntryFeePaid
+            };
+
+            _context.Teams.Add(newTeam);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
