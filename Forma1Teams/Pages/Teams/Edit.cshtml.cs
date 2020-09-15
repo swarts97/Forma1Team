@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Forma1Teams.Data;
 using Forma1Teams.Models;
+using static Forma1Teams.Services.ValidatorService;
+using System.ComponentModel.DataAnnotations;
 
 namespace Forma1Teams.Pages.Teams
 {
@@ -20,8 +22,24 @@ namespace Forma1Teams.Pages.Teams
             _context = context;
         }
 
+        private int? SelectedTeamID { get; set; }
+
         [BindProperty]
-        public Team Team { get; set; }
+        [Required]
+        public string Name { get; set; }
+
+        [BindProperty]
+        [Required]
+        [FoundationValidator]
+        public int YearOfFoundation { get; set; }
+
+        [BindProperty]
+        [Required]
+        [WorldChampionNumberValidator]
+        public int WorldChampionNumber { get; set; }
+
+        [BindProperty]
+        public bool EntryFeePaid { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,25 +48,37 @@ namespace Forma1Teams.Pages.Teams
                 return NotFound();
             }
 
-            Team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == id);
+            SelectedTeamID = id;
+            Team team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == SelectedTeamID);
 
-            if (Team == null)
+            if (team == null)
             {
                 return NotFound();
             }
+
+            Name = team.Name;
+            YearOfFoundation = team.YearOfFoundation;
+            WorldChampionNumber = team.WorldChampionNumber;
+            EntryFeePaid = team.EntryFeePaid;
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Team).State = EntityState.Modified;
+            Team team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == id);
+
+            team.Name = Name;
+            team.YearOfFoundation = YearOfFoundation;
+            team.WorldChampionNumber = WorldChampionNumber;
+            team.EntryFeePaid = EntryFeePaid;
+
+            _context.Attach(team).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +86,7 @@ namespace Forma1Teams.Pages.Teams
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TeamExists(Team.TeamID))
+                if (!TeamExists(team.TeamID))
                 {
                     return NotFound();
                 }
