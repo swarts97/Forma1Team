@@ -28,8 +28,18 @@ namespace Forma1Teams
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<F1Context>();
+			services.AddDefaultIdentity<IdentityUser>(options =>
+			{
+				options.SignIn.RequireConfirmedEmail = true;
+				options.User.RequireUniqueEmail = true;
+				options.Password.RequiredLength = 10;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+			})
+			.AddRoles<IdentityRole>()
+			.AddEntityFrameworkStores<F1Context>()
+			.AddDefaultTokenProviders();
+
 			services.AddRazorPages();
 
 			//Mivel az SQLite in-memory adatbázisok élettartama kapcsolatbontásig tart így szükséges egy explicit megnyitott kapcsolatot átadni.
@@ -41,10 +51,16 @@ namespace Forma1Teams
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
 		{
 			//Mivel in-memory adatbázissal dolgozunk, mely futásidõben jön létre, így a migrációt is futásidõben kell elvégeznünk.
 			UpdateDatabase(app);
+
+			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			{
+				var context = serviceScope.ServiceProvider.GetService<F1Context>();
+				DbInitializer.Initialize(context, userManager, roleManager);
+			}
 
 			if (env.IsDevelopment())
 			{
@@ -70,12 +86,6 @@ namespace Forma1Teams
 			{
 				endpoints.MapRazorPages();
 			});
-
-			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-			{
-				var context = serviceScope.ServiceProvider.GetService<F1Context>();
-				DbInitializer.Initialize(context);
-			}
 		}
 
 		private static void UpdateDatabase(IApplicationBuilder app)
