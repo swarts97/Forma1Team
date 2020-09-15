@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Teams\\Forma1Teams\\Forma1Teams.csproj": {}
+    "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Team\\Forma1Teams\\Forma1Teams.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Teams\\Forma1Teams\\Forma1Teams.csproj": {
+    "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Team\\Forma1Teams\\Forma1Teams.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Teams\\Forma1Teams\\Forma1Teams.csproj",
+        "projectUniqueName": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Team\\Forma1Teams\\Forma1Teams.csproj",
         "projectName": "Forma1Teams",
-        "projectPath": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Teams\\Forma1Teams\\Forma1Teams.csproj",
+        "projectPath": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Team\\Forma1Teams\\Forma1Teams.csproj",
         "packagesPath": "C:\\Users\\Szőke Tibor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Teams\\Forma1Teams\\obj\\",
+        "outputPath": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Team\\Forma1Teams\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Szőke Tibor\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OWIX3vDO6bpmJQY6sPR+lnqkHdZnmrvEbN4ARbg+alzWjJ/iSeQ0WQd3Yq2Y7dZcgeMttn0SDi4yn7e/ozA7yA==",
+  "dgSpecHash": "C6OlHZ62YPEPlipuctdLEeINqsYflt8fAptYix3QABCvKEYAYe3u+InAd/3bj+k5tjMn8l8R6hkbtZtx8p6Xkg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Teams\\Forma1Teams\\Forma1Teams.csproj",
+  "projectFilePath": "C:\\Users\\Szőke Tibor\\source\\repos\\Forma1Team\\Forma1Teams\\Forma1Teams.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Szőke Tibor\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.5\\microsoft.aspnetcore.cryptography.internal.3.1.5.nupkg.sha512",
     "C:\\Users\\Szőke Tibor\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.5\\microsoft.aspnetcore.cryptography.keyderivation.3.1.5.nupkg.sha512",

@@ -37,10 +37,10 @@ namespace Forma1Teams.Data
 
 		static void InitializeUsers(UserManager<IdentityUser> userManager)
 		{
-			if (userManager.FindByNameAsync("admin@gmail.com").Result == null)
+			if (userManager.FindByNameAsync("admin").Result == null)
 			{
 				IdentityUser user = new IdentityUser();
-				user.UserName = "admin@gmail.com";
+				user.UserName = "admin";
 				user.Email = "admin@gmail.com";
 				user.EmailConfirmed = true;
 
@@ -57,7 +57,7 @@ namespace Forma1Teams.Data
 				user.Email = "user@gmail.com";
 				user.EmailConfirmed = true;
 
-				IdentityResult result = userManager.CreateAsync(user, "User123'").Result;
+				IdentityResult result = userManager.CreateAsync(user, "f1user2020").Result;
 
 				if (result.Succeeded)
 					userManager.AddToRoleAsync(user, "User").Wait();
