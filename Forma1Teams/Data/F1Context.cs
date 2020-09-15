@@ -7,19 +7,15 @@ using Forma1Teams.Models;
 
 namespace Forma1Teams.Data
 {
-    public class Forma1TeamsContext : DbContext
+    public class F1Context : DbContext
     {
-        public Forma1TeamsContext (DbContextOptions<Forma1TeamsContext> options)
-            : base(options)
-        {
-        }
+        public F1Context (DbContextOptions<F1Context> options) : base(options) {}
 
         public DbSet<Forma1Teams.Models.Team> Teams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-
 			modelBuilder.Entity<Team>().ToTable("Team");
 		}
 	}

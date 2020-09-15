@@ -29,14 +29,14 @@ namespace Forma1Teams
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<Forma1TeamsContext>();
+				.AddEntityFrameworkStores<F1Context>();
 			services.AddRazorPages();
 
 			//Mivel az SQLite in-memory adatbázisok élettartama kapcsolatbontásig tart így szükséges egy explicit megnyitott kapcsolatot átadni.
 			var inMemorySQLiteConnection = new SqliteConnection("DataSource=:memory:");
 			inMemorySQLiteConnection.Open();
 
-			services.AddDbContext<Forma1TeamsContext>(options =>
+			services.AddDbContext<F1Context>(options =>
 		            options.UseSqlite(inMemorySQLiteConnection));
 		}
 
@@ -70,13 +70,19 @@ namespace Forma1Teams
 			{
 				endpoints.MapRazorPages();
 			});
+
+			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			{
+				var context = serviceScope.ServiceProvider.GetService<F1Context>();
+				DbInitializer.Initialize(context);
+			}
 		}
 
 		private static void UpdateDatabase(IApplicationBuilder app)
 		{
 			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 			{
-				using (var context = serviceScope.ServiceProvider.GetService<Forma1TeamsContext>())
+				using (var context = serviceScope.ServiceProvider.GetService<F1Context>())
 				{
 					context.Database.Migrate();
 				}

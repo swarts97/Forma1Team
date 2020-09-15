@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Forma1Teams.Migrations
 {
-    [DbContext(typeof(Forma1TeamsContext))]
+    [DbContext(typeof(F1Context))]
     [Migration("20200915174041_Initial")]
     partial class Initial
     {

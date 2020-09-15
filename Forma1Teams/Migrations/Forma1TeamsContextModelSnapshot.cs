@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Forma1Teams.Migrations
 {
-    [DbContext(typeof(Forma1TeamsContext))]
+    [DbContext(typeof(F1Context))]
     partial class Forma1TeamsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

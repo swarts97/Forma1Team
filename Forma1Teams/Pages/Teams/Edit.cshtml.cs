@@ -13,9 +13,9 @@ namespace Forma1Teams.Pages.Teams
 {
     public class EditModel : PageModel
     {
-        private readonly Forma1Teams.Data.Forma1TeamsContext _context;
+        private readonly Forma1Teams.Data.F1Context _context;
 
-        public EditModel(Forma1Teams.Data.Forma1TeamsContext context)
+        public EditModel(Forma1Teams.Data.F1Context context)
         {
             _context = context;
         }
