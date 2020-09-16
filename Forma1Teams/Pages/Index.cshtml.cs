@@ -19,7 +19,6 @@ namespace Forma1Teams.Pages
 
 		public void OnGet()
 		{
-
 		}
 	}
 }
