@@ -21,11 +21,6 @@ namespace Forma1Teams.Pages.Teams
             _context = context;
         }
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
-
         [BindProperty]
         [Required]
         public string Name { get; set; }
@@ -42,6 +37,14 @@ namespace Forma1Teams.Pages.Teams
 
         [BindProperty]
         public bool EntryFeePaid { get; set; }
+
+        public IActionResult OnGet()
+        {
+            if (_context._httpContextAccessor.HttpContext.User != null && _context._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                return Page();
+            else
+                return RedirectToPage("../Error");
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {

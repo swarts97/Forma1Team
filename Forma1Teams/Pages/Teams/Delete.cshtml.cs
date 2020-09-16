@@ -24,18 +24,25 @@ namespace Forma1Teams.Pages.Teams
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
+            if (_context._httpContextAccessor.HttpContext.User != null && _context._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+			{
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                Team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == id);
+
+                if (Team == null)
+                {
+                    return NotFound();
+                }
+                return Page();
             }
 
-            Team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == id);
+            else
+                return RedirectToPage("../Error");
 
-            if (Team == null)
-            {
-                return NotFound();
-            }
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)

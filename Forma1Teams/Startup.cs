@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Data.Sqlite;
+using Microsoft.AspNetCore.Http;
 
 namespace Forma1Teams
 {
@@ -46,8 +47,8 @@ namespace Forma1Teams
 			var inMemorySQLiteConnection = new SqliteConnection("DataSource=:memory:");
 			inMemorySQLiteConnection.Open();
 
-			services.AddDbContext<F1Context>(options =>
-		            options.UseSqlite(inMemorySQLiteConnection));
+			services.AddDbContext<F1Context>(options => options.UseSqlite(inMemorySQLiteConnection));
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

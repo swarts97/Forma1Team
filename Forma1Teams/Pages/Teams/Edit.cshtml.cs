@@ -43,25 +43,31 @@ namespace Forma1Teams.Pages.Teams
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
+            if (_context._httpContextAccessor.HttpContext.User != null && _context._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+			{
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                SelectedTeamID = id;
+                Team team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == SelectedTeamID);
+
+                if (team == null)
+                {
+                    return NotFound();
+                }
+
+                Name = team.Name;
+                YearOfFoundation = team.YearOfFoundation;
+                WorldChampionNumber = team.WorldChampionNumber;
+                EntryFeePaid = team.EntryFeePaid;
+
+                return Page();
             }
-
-            SelectedTeamID = id;
-            Team team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == SelectedTeamID);
-
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            Name = team.Name;
-            YearOfFoundation = team.YearOfFoundation;
-            WorldChampionNumber = team.WorldChampionNumber;
-            EntryFeePaid = team.EntryFeePaid;
-
-            return Page();
+            
+            else
+                return RedirectToPage("../Error");
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
