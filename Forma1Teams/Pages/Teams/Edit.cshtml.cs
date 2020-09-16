@@ -10,19 +10,20 @@ using Forma1Teams.Data;
 using Forma1Teams.Models;
 using static Forma1Teams.Services.ValidatorService;
 using System.ComponentModel.DataAnnotations;
+using Forma1Teams.Services;
 
 namespace Forma1Teams.Pages.Teams
 {
     public class EditModel : PageModel
     {
-        private readonly Forma1Teams.Data.F1Context _context;
+        private readonly F1Context _context;
+        private readonly TeamService _teamService;
 
-        public EditModel(Forma1Teams.Data.F1Context context)
+        public EditModel(F1Context context, TeamService teamService)
         {
             _context = context;
+            _teamService = teamService;
         }
-
-        private int? SelectedTeamID { get; set; }
 
         [BindProperty]
         [Required]
@@ -50,18 +51,17 @@ namespace Forma1Teams.Pages.Teams
                     return NotFound();
                 }
 
-                SelectedTeamID = id;
-                Team team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == SelectedTeamID);
+                await _teamService.TeamByIdAsync(_context, id);
 
-                if (team == null)
+                if (_teamService.Team == null)
                 {
                     return NotFound();
                 }
 
-                Name = team.Name;
-                YearOfFoundation = team.YearOfFoundation;
-                WorldChampionNumber = team.WorldChampionNumber;
-                EntryFeePaid = team.EntryFeePaid;
+                Name = _teamService.Team.Name;
+                YearOfFoundation = _teamService.Team.YearOfFoundation;
+                WorldChampionNumber = _teamService.Team.WorldChampionNumber;
+                EntryFeePaid = _teamService.Team.EntryFeePaid;
 
                 return Page();
             }
@@ -77,14 +77,10 @@ namespace Forma1Teams.Pages.Teams
                 return Page();
             }
 
-            Team team = await _context.Teams.FirstOrDefaultAsync(m => m.TeamID == id);
+            await _teamService.TeamByIdAsync(_context, id);
+            _teamService.FillTeamData(Name, YearOfFoundation, WorldChampionNumber, EntryFeePaid);
 
-            team.Name = Name;
-            team.YearOfFoundation = YearOfFoundation;
-            team.WorldChampionNumber = WorldChampionNumber;
-            team.EntryFeePaid = EntryFeePaid;
-
-            _context.Attach(team).State = EntityState.Modified;
+            _context.Attach(_teamService.Team).State = EntityState.Modified;
 
             try
             {
@@ -92,7 +88,7 @@ namespace Forma1Teams.Pages.Teams
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TeamExists(team.TeamID))
+                if (!TeamExists(_teamService.Team.TeamID))
                 {
                     return NotFound();
                 }

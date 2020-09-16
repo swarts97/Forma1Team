@@ -12,9 +12,9 @@ namespace Forma1Teams.Pages.Teams
 {
     public class DeleteModel : PageModel
     {
-        private readonly Forma1Teams.Data.F1Context _context;
+        private readonly F1Context _context;
 
-        public DeleteModel(Forma1Teams.Data.F1Context context)
+        public DeleteModel(F1Context context)
         {
             _context = context;
         }

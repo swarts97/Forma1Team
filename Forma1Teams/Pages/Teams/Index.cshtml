@@ -9,17 +9,17 @@
     <thead>
         <tr>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                <a asp-page="./Index" asp-route-sortOrder="@Model._teamService.NameSort">
                     Team name
                 </a>
             </th>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.FoundationSort">
+                <a asp-page="./Index" asp-route-sortOrder="@Model._teamService.FoundationSort">
                     Year of foundation
                 </a>
             </th>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.WinSort">
+                <a asp-page="./Index" asp-route-sortOrder="@Model._teamService.WinSort">
                     Number of won world championships
                 </a>
             </th>
@@ -30,7 +30,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Teams) {
+@foreach (var item in Model._teamService.Teams) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
