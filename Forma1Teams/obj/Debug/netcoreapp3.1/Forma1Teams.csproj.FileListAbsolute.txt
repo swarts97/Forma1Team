@@ -387,3 +387,4 @@ C:\Users\Szőke Tibor\source\repos\Forma1Team\Forma1Teams\obj\Debug\netcoreapp3.
 C:\Users\Szőke Tibor\source\repos\Forma1Team\Forma1Teams\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Szőke Tibor\source\repos\Forma1Team\Forma1Teams\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\Szőke Tibor\source\repos\Forma1Team\Forma1Teams\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
+C:\Users\Szőke Tibor\source\repos\Forma1Team\Forma1Teams\bin\Debug\netcoreapp3.1\libman.json

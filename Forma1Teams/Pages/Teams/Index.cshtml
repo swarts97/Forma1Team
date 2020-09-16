@@ -5,54 +5,71 @@
     ViewData["Title"] = "Index";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model._teamService.NameSort">
-                    Team name
-                </a>
-            </th>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model._teamService.FoundationSort">
-                    Year of foundation
-                </a>
-            </th>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model._teamService.WinSort">
-                    Number of won world championships
-                </a>
-            </th>
-            <th>
-                Is entry fee paid
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model._teamService.Teams)
-        {
+<div class="container col-lg-10">
+    <table class="table table-hover table-active">
+        <thead>
+            <tr class="table-secondary">
+                <td style="vertical-align: middle;">
+                    <strong class="text-primary"><a asp-page="./Index" asp-route-sortOrder="@Model._teamService.NameSort">Team name</a></strong>
+                </td>
+                <td style="text-align:center;vertical-align: middle;">
+                    <strong><a asp-page="./Index" asp-route-sortOrder="@Model._teamService.FoundationSort">Year of foundation</a></strong>
+                </td>
+                <td style="text-align:center;vertical-align: middle;">
+                    <strong><a asp-page="./Index" asp-route-sortOrder="@Model._teamService.FoundationSort">Number of won world championships</a></strong>
+                </td>
+                <td style="text-align:center;vertical-align: middle;">
+                    <strong>Is entry fee paid</strong>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model._teamService.Teams)
+            {
             <tr>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td style="vertical-align: middle;text-align:center;">
                     @Html.DisplayFor(modelItem => item.YearOfFoundation)
                 </td>
-                <td>
+                <td style="vertical-align: middle;text-align:center;">
                     @Html.DisplayFor(modelItem => item.WorldChampionNumber)
                 </td>
-                <td>
+                <td style="vertical-align: middle;text-align:center;">
                     @Html.DisplayFor(modelItem => item.EntryFeePaid)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.TeamID">Edit</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.TeamID">Delete</a>
+                    <button type="button" class="btn btn-sm btn-danger">
+                        <a class="nav-link" asp-page="./Delete" asp-route-id="@item.TeamID">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                            </svg>
+                        </a>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-info">
+                        <a class="nav-link" asp-page="./Edit" asp-route-id="@item.TeamID">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                            </svg>
+                        </a>
+                    </button>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
-<p>
-    <a asp-page="Create">Create New Team</a>
-</p>
+            }
+            <tr>
+                <td style="vertical-align: middle;text-align:center;">
+                    <button type="button" class="btn btn-dark"><a class="nav-link text-white" asp-page="Create">Create New Team</a></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+        
