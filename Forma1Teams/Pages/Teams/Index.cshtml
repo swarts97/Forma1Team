@@ -9,13 +9,19 @@
     <thead>
         <tr>
             <th>
-                Team name
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    Team name
+                </a>
             </th>
             <th>
-                Year of foundation
+                <a asp-page="./Index" asp-route-sortOrder="@Model.FoundationSort">
+                    Year of foundation
+                </a>
             </th>
             <th>
-                Number of won world championships
+                <a asp-page="./Index" asp-route-sortOrder="@Model.WinSort">
+                    Number of won world championships
+                </a>
             </th>
             <th>
                 Is entry fee paid
