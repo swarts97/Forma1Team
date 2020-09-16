@@ -30,26 +30,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model._teamService.Teams) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YearOfFoundation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorldChampionNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryFeePaid)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.TeamID">Edit</a> |
-                <a asp-page="./Delete" asp-route-id="@item.TeamID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model._teamService.Teams)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearOfFoundation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorldChampionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryFeePaid)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.TeamID">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.TeamID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <p>

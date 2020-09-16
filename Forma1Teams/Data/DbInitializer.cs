@@ -1,9 +1,6 @@
 ﻿using Forma1Teams.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Forma1Teams.Data
 {
@@ -66,7 +63,7 @@ namespace Forma1Teams.Data
 
 		public static void InitializeTeams(F1Context context)
 		{
-            //Igazából mivel in-memory adatbázisról van szó, ez a kódrészlet felesleges jelenleg,
+            //Mivel in-memory adatbázisról van szó, ez a kódrészlet felesleges jelenleg,
             //de később ha átváltanánk SQL Serverre például már hasznos, így elhelyezése indokolt.
             if (context.Teams.Any())
             {

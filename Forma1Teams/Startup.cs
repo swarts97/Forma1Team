@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Forma1Teams.Data;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +21,6 @@ namespace Forma1Teams
 
 		public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDefaultIdentity<IdentityUser>(options =>
@@ -53,7 +46,6 @@ namespace Forma1Teams
 			services.AddSingleton<TeamService>();
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
 		{
 			//Mivel in-memory adatbázissal dolgozunk, mely futásidõben jön létre, így a migrációt is futásidõben kell elvégeznünk.
@@ -73,7 +65,6 @@ namespace Forma1Teams
 			else
 			{
 				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 

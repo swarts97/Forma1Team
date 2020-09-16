@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Forma1Teams.Data;
-using Forma1Teams.Models;
-using static Forma1Teams.Services.ValidatorService;
-using System.ComponentModel.DataAnnotations;
 using Forma1Teams.Services;
+using System.ComponentModel.DataAnnotations;
+using static Forma1Teams.Services.ValidatorService;
 
 namespace Forma1Teams.Pages.Teams
 {
